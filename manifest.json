@@ -1,0 +1,14 @@
+{
+  "name": "Projekt X",
+  "short_name": "Projekt X",
+  "description": "AI aplikacija za povezovanje ljudi glede na namen, aktivnosti in pomoč.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071019",
+  "theme_color": "#071019",
+  "lang": "sl",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
