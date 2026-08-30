@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="sl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#071019" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Projekt X" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <title>Projekt X</title>
+  <style>
+    :root{--bg:#071019;--panel:#0c1721;--panel2:#101f2b;--line:#213342;--text:#f5fbff;--muted:#8fa5b5;--accent:#6be7ff;--accent2:#8d7dff;--good:#62e6a7;--warn:#ffcb6b}
+    *{box-sizing:border-box}html,body{margin:0;background:radial-gradient(circle at 50% -20%,#153142 0,#071019 48%,#050b10 100%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;min-height:100%}button,textarea,input{font:inherit}.app{max-width:520px;margin:auto;min-height:100vh;padding:calc(env(safe-area-inset-top) + 18px) 18px calc(92px + env(safe-area-inset-bottom))}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.brand{font-weight:700;letter-spacing:.08em}.beta{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:7px 10px;border-radius:999px}.hero{padding:22px 0 10px}.eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}h1{font-size:38px;line-height:1.02;margin:9px 0 12px;letter-spacing:-.04em}.sub{color:var(--muted);line-height:1.5}.orb{width:86px;height:86px;border-radius:50%;margin:24px auto;background:radial-gradient(circle at 34% 28%,#efffff 0,#6be7ff 17%,#6d82ff 46%,transparent 70%);box-shadow:0 0 80px rgba(107,231,255,.32);animation:pulse 3.8s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.06);filter:brightness(1.15)}}.composer,.card{background:rgba(12,23,33,.82);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:25px}.composer{padding:15px}.composer textarea{width:100%;min-height:98px;resize:none;background:transparent;border:0;outline:0;color:var(--text);font-size:19px;line-height:1.4}.composer textarea::placeholder{color:#708595}.row{display:flex;gap:9px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#0b1720;color:#cfe0eb;border-radius:999px;padding:10px 13px;font-size:13px}.primary{border:0;color:#031018;background:linear-gradient(135deg,var(--accent),#a8f3ff);font-weight:750;border-radius:999px;padding:12px 17px;margin-left:auto}.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 26px}.quick button{min-height:83px;background:linear-gradient(180deg,rgba(16,31,43,.95),rgba(9,20,29,.95));border:1px solid var(--line);color:var(--text);border-radius:20px;padding:12px;text-align:left}.quick b{display:block;margin-top:8px;font-size:13px}.screen{display:none}.screen.active{display:block}.sectionTitle{display:flex;justify-content:space-between;align-items:end;margin:28px 0 12px}.sectionTitle h2{font-size:21px;margin:0}.sectionTitle span{font-size:12px;color:var(--muted)}.card{padding:17px;margin-bottom:11px}.intentGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.mini{padding:13px;border-radius:18px;background:var(--panel2);border:1px solid var(--line)}.mini small{color:var(--muted);display:block;margin-bottom:5px}.match{display:flex;align-items:center;gap:13px}.avatar{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#214056,#433b74);font-weight:800}.grow{flex:1}.muted{color:var(--muted);font-size:13px}.score{font-weight:750;color:var(--accent)}.cta{width:100%;border:0;border-radius:16px;padding:14px;background:linear-gradient(135deg,var(--accent),#9feeff);color:#041018;font-weight:800;margin-top:12px}.secondary{width:100%;border:1px solid var(--line);border-radius:16px;padding:13px;background:transparent;color:var(--text);margin-top:9px}.chat{display:flex;flex-direction:column;gap:10px}.bubble{max-width:82%;padding:11px 13px;border-radius:17px;background:#132431;line-height:1.35}.bubble.me{align-self:flex-end;background:#173d4c}.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(5,11,16,.88);backdrop-filter:blur(20px);border-top:1px solid var(--line);padding:9px 12px calc(9px + env(safe-area-inset-bottom));display:flex;justify-content:center}.navin{width:min(520px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.nav button{border:0;background:transparent;color:var(--muted);padding:8px 4px;font-size:11px}.nav button.active{color:var(--accent)}.nav i{display:block;font-style:normal;font-size:19px;margin-bottom:3px}.status{display:inline-flex;align-items:center;gap:7px;color:var(--good);font-size:13px}.dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 12px var(--good)}.back{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:8px 12px}.hide{display:none!important}
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div class="brand">PROJEKT X</div><div class="beta">MVP · SL</div></div>
+
+  <main id="domov" class="screen active">
+    <div class="hero"><div class="eyebrow">AI za resnično življenje</div><h1>Kaj želiš, da se zgodi?</h1><div class="sub">Povej po svoje. Aplikacija razume namen, poišče prave ljudi in predlaga konkreten plan.</div></div>
+    <div class="orb"></div>
+    <div class="composer">
+      <textarea id="vnos" placeholder="Npr. danes bi šel s kolesom okoli Novega mesta, približno 40 km, zmeren tempo."></textarea>
+      <div class="row"><span class="chip">📍 okoli mene</span><span class="chip">🕐 danes</span><button class="primary" onclick="analiziraj()">Nadaljuj</button></div>
+    </div>
+    <div class="quick">
+      <button onclick="primer('Danes bi šel na sprehod in spoznal nove ljudi.')">🚶<b>Sprehod</b></button>
+      <button onclick="primer('Danes bi šel s kolesom približno 40 km, zmeren tempo.')">🚴<b>Kolesarjenje</b></button>
+      <button onclick="primer('Danes zvečer bi igral basket.')">🏀<b>Basket</b></button>
+      <button onclick="primer('Rad bi našel družbo ali sopotnika za potovanje po Evropi.')">✈️<b>Potovanje</b></button>
+      <button onclick="primer('Rad bi šel na kavo in spoznal nove ljudi v bližini.')">☕<b>Druženje</b></button>
+      <button onclick="primer('Na avtu mi ne dela leva sprednja žarnica in rabim pomoč.')">🛠️<b>Pomoč</b></button>
+    </div>
+    <div class="sectionTitle"><h2>Kako deluje</h2><span>brez feeda</span></div>
+    <div class="card"><b>1. Povej namen</b><div class="muted" style="margin-top:6px">Ni objave, hashtagov ali iskanja skupin.</div></div>
+    <div class="card"><b>2. AI najde kompatibilne ljudi</b><div class="muted" style="margin-top:6px">Lokacija, čas, tempo, interesi in preference.</div></div>
+    <div class="card"><b>3. Nastane konkreten plan</b><div class="muted" style="margin-top:6px">Chat se odpre šele, ko se ljudje odločijo sodelovati.</div></div>
+  </main>
+
+  <main id="ujemanje" class="screen">
+    <button class="back" onclick="odpri('domov')">← Nazaj</button>
+    <div class="sectionTitle"><h2>AI je razumel tvoj namen</h2><span id="tip">DO</span></div>
+    <div class="card"><div id="povzetek" style="font-size:20px;font-weight:700"></div><div class="intentGrid"><div class="mini"><small>Aktivnost</small><b id="aktivnost">Kolesarjenje</b></div><div class="mini"><small>Čas</small><b id="cas">Danes</b></div><div class="mini"><small>Območje</small><b>V bližini</b></div><div class="mini"><small>Način</small><b id="nacin">Skupina</b></div></div></div>
+    <div class="sectionTitle"><h2>Najboljša ujemanja</h2><span>v živo</span></div>
+    <div class="card match"><div class="avatar">MK</div><div class="grow"><b>Marko K.</b><div class="muted">2,1 km · na voljo danes</div></div><div class="score">94%</div></div>
+    <div class="card match"><div class="avatar">AR</div><div class="grow"><b>Ana R.</b><div class="muted">3,4 km · podoben tempo</div></div><div class="score">89%</div></div>
+    <div class="card match"><div class="avatar">JP</div><div class="grow"><b>Jure P.</b><div class="muted">5,2 km · isti interes</div></div><div class="score">84%</div></div>
+    <button class="cta" onclick="odpriPlan()">Ustvari predlog plana</button>
+  </main>
+
+  <main id="plan" class="screen">
+    <button class="back" onclick="odpri('ujemanje')">← Nazaj</button>
+    <div class="sectionTitle"><h2>Plan je pripravljen</h2><span class="status"><i class="dot"></i>aktiven</span></div>
+    <div class="card"><div class="eyebrow">Predlog AI</div><h2 id="planNaslov" style="margin:9px 0 5px">Kolesarjenje danes ob 17:30</h2><div class="muted" id="planOpis">4 osebe · približno 40 km · zmeren tempo</div><div class="intentGrid"><div class="mini"><small>Zbor</small><b>17:30</b></div><div class="mini"><small>Skupina</small><b>4 osebe</b></div></div><button class="cta" onclick="pridruzi()">Pridruži se planu</button><button class="secondary" onclick="odpri('domov')">Ne ustreza mi</button></div>
+  </main>
+
+  <main id="klepet" class="screen">
+    <button class="back" onclick="odpri('plan')">← Plan</button>
+    <div class="sectionTitle"><h2>Skupinski klepet</h2><span>4 osebe</span></div>
+    <div class="card chat"><div class="bubble">Živjo 👋 Meni 17:30 ustreza.</div><div class="bubble">Tudi meni. Lahko naredimo bolj umirjen tempo.</div><div class="bubble me">Super, se vidimo!</div></div>
+    <div class="composer" style="margin-top:12px"><textarea id="sporocilo" style="min-height:62px" placeholder="Napiši sporočilo …"></textarea><div class="row"><button class="primary" onclick="poslji()">Pošlji</button></div></div>
+  </main>
+
+  <main id="nacrti" class="screen"><div class="sectionTitle"><h2>Moji načrti</h2><span>aktivni</span></div><div id="prazenPlan" class="card"><b>Zaenkrat nimaš aktivnega plana.</b><div class="muted" style="margin-top:6px">Ko se pridružiš ujemanju, se bo prikazalo tukaj.</div></div><div id="mojPlan" class="card hide"><div class="eyebrow">Danes</div><h2 style="margin:8px 0">Tvoj novi plan</h2><div class="muted">Skupina je potrjena. Klepet je odprt.</div><button class="cta" onclick="odpri('klepet')">Odpri klepet</button></div></main>
+
+  <main id="profil" class="screen"><div class="sectionTitle"><h2>Moj profil</h2><span>zasebno</span></div><div class="card"><b>Skill Graph</b><div class="row" style="margin-top:12px"><span class="chip">💻 Računalniki</span><span class="chip">🚗 Avto · osnovno</span><span class="chip">📱 Telefoni</span></div></div><div class="card"><b>Interesi</b><div class="row" style="margin-top:12px"><span class="chip">🚴 Kolesarjenje</span><span class="chip">🚶 Pohodi</span><span class="chip">✈️ Potovanja</span></div></div><div class="card"><b>Na voljo za pomoč</b><div class="muted" style="margin-top:6px">Kasneje boš tukaj določil, kdaj te lahko sistem predlaga drugim.</div></div></main>
+</div>
+
+<nav class="nav"><div class="navin"><button data-nav="domov" class="active" onclick="odpri('domov',this)"><i>⌂</i>Domov</button><button data-nav="nacrti" onclick="odpri('nacrti',this)"><i>◎</i>Načrti</button><button data-nav="ujemanje" onclick="odpri('ujemanje',this)"><i>◇</i>Ujemanja</button><button data-nav="profil" onclick="odpri('profil',this)"><i>◉</i>Profil</button></div></nav>
+<script>
+const q=s=>document.querySelector(s), qa=s=>[...document.querySelectorAll(s)];
+function odpri(id,btn){qa('.screen').forEach(x=>x.classList.remove('active'));q('#'+id).classList.add('active');qa('[data-nav]').forEach(x=>x.classList.toggle('active',x.dataset.nav===id));scrollTo({top:0,behavior:'smooth'})}
+function primer(t){q('#vnos').value=t;q('#vnos').focus()}
+function analiziraj(){let t=q('#vnos').value.trim();if(!t){q('#vnos').focus();return}let l=t.toLowerCase(),a='Druženje',tip='DO',n='Skupina';if(l.includes('koles'))a='Kolesarjenje';else if(l.includes('basket'))a='Basket';else if(l.includes('sprehod')||l.includes('pohod'))a='Sprehod / pohod';else if(l.includes('potov')||l.includes('sopot'))a='Potovanje';else if(l.includes('žarn')||l.includes('pomoč')||l.includes('avtu')){a='Pomoč pri avtu';tip='HELP';n='Pomočnik'}q('#povzetek').textContent=t;q('#aktivnost').textContent=a;q('#tip').textContent=tip;q('#nacin').textContent=n;localStorage.setItem('zadnjiNamen',t);odpri('ujemanje')}
+function odpriPlan(){let a=q('#aktivnost').textContent;if(a==='Kolesarjenje'){q('#planNaslov').textContent='Kolesarjenje danes ob 17:30';q('#planOpis').textContent='4 osebe · približno 40 km · zmeren tempo'}else if(a.includes('Potovanje')){q('#planNaslov').textContent='Spoznaj sopotnike s podobnim planom';q('#planOpis').textContent='3 kompatibilne osebe · podobno obdobje in destinacije'}else if(a.includes('Pomoč')){q('#planNaslov').textContent='Preverjen pomočnik je na voljo';q('#planOpis').textContent='2,1 km stran · najprej lahko poskusita prek videa'}else{q('#planNaslov').textContent=a+' danes ob 18:00';q('#planOpis').textContent='4 kompatibilne osebe v bližini'}odpri('plan')}
+function pridruzi(){localStorage.setItem('imamPlan','1');q('#prazenPlan').classList.add('hide');q('#mojPlan').classList.remove('hide');odpri('klepet')}
+function poslji(){let i=q('#sporocilo'),t=i.value.trim();if(!t)return;let b=document.createElement('div');b.className='bubble me';b.textContent=t;q('.chat').appendChild(b);i.value=''}
+if(localStorage.getItem('imamPlan')){q('#prazenPlan').classList.add('hide');q('#mojPlan').classList.remove('hide')}
+if('serviceWorker' in navigator) addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
