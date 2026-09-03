@@ -1,1 +1,158 @@
-<!doctype html><html lang="sl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050505"><title>Projekt X · MVP 11.6</title><style>html,body{margin:0;width:100%;height:100%;background:#050505;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block;background:#050505}</style></head><body><iframe id="app" src="mvp10.html?v=115"></iframe><script>const f=document.getElementById('app');f.addEventListener('load',()=>{const w=f.contentWindow,d=f.contentDocument;const labels={Vse:null,'Šport':'sport','Kava':'kava','Sprehod':'sprehod','Kolesarjenje':'kolesarjenje'};async function applyFilter(label){const chips=[...d.querySelectorAll('#home .filterchip')];chips.forEach(b=>b.classList.toggle('on',b.textContent.trim()===label));try{const j=await w.api('activity_list');let items=(j.items||[]).filter(x=>x.creator_device_id!==w.deviceId&&w.hasAny(w.profile.interests,w.interestMap[x.category]||[]));const cat=labels[label];if(cat)items=items.filter(x=>x.category===cat);const feed=d.getElementById('feed');feed.innerHTML=items.length?items.slice(0,6).map(x=>w.renderActivity(x,true)).join(''):'<div class="empty">Trenutno ni aktivnosti v tej kategoriji.</div>';}catch(e){}}function wire(){const chips=[...d.querySelectorAll('#home .filterchip')];chips.forEach(b=>{b.onclick=()=>applyFilter(b.textContent.trim())});const tag=d.querySelector('.tag');if(tag)tag.textContent='MVP 11.6 · ZDAJ';}wire();const obs=new MutationObserver(wire);const home=d.getElementById('home');if(home)obs.observe(home,{subtree:true,childList:true});});</script></body></html>
+<!doctype html><html lang="sl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050505"><title>Projekt X · MVP 11.7</title><style>html,body{margin:0;width:100%;height:100%;background:#050505;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block;background:#050505}</style></head><body><iframe id="app" src="mvp10.html?v=117"></iframe><script>
+const f=document.getElementById('app');
+f.addEventListener('load',()=>{
+  const w=f.contentWindow,d=f.contentDocument;
+  if(!w||!d)return;
+
+  /* ---------- ENOTEN X VIZUAL ---------- */
+  const style=d.createElement('style');
+  style.textContent=`
+    :root{--lime:#cfff00;--bg:#050505;--card:#111;--line:#292929;--mut:#999}
+    html{background:#050505}body{background:radial-gradient(circle at 50% -15%,#151b00 0,#050505 24%,#050505 100%)}
+    .app{padding-left:16px!important;padding-right:16px!important;max-width:560px!important}
+    .top{padding-top:max(10px,env(safe-area-inset-top))!important;background:linear-gradient(#050505 76%,transparent)!important}
+    .tag{font-size:9px!important;padding:6px 8px!important;letter-spacing:.03em}
+    .xlogo{font-size:32px!important}.brand{font-size:15px!important}
+    h1{font-size:31px!important;line-height:1.04!important}h2{font-size:19px!important}
+    .card{border-radius:20px!important;padding:14px!important;margin:10px 0!important}
+    .hero{border-radius:22px!important;margin:10px 0 14px!important;min-height:210px!important}
+    #login .hero{min-height:250px!important}.heroText{left:16px!important;right:16px!important;bottom:16px!important}
+    .heroText h1{font-size:31px!important;margin:7px 0 8px!important}
+    button{font-family:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation;cursor:pointer}
+    .filterbar{gap:7px!important;margin-left:-1px;padding-bottom:9px!important}
+    .filterchip,.mini,.back{min-height:38px!important;padding:8px 12px!important;font-size:13px!important;border-radius:13px!important}
+    .filterchip{transition:.16s ease}.filterchip:active,.mini:active,.back:active{transform:scale(.97)}
+    .filterchip.on{box-shadow:0 0 0 1px rgba(207,255,0,.18),0 7px 18px rgba(207,255,0,.08)}
+    .cta{min-height:46px!important;padding:11px 14px!important;font-size:14px!important;border-radius:14px!important;margin-top:9px!important;transition:.15s ease}
+    .cta:active{transform:scale(.985)}.cta[disabled],button[disabled]{opacity:.55;pointer-events:none}
+    .choices{gap:9px!important}.choice{min-height:96px!important;border-radius:17px!important}.choice span{left:10px!important;bottom:9px!important;font-size:13px!important}.choice.sel{outline:2px solid var(--lime)!important;outline-offset:-2px;box-shadow:0 0 0 2px rgba(207,255,0,.08)}
+    input,select{min-height:46px!important;padding:11px 13px!important;border-radius:14px!important;font-size:16px!important}
+    .feeditem{border-radius:20px!important;margin:10px 0!important}.feedimg{height:172px!important}.feedbody{padding:13px!important}.feedtitle{font-size:19px!important}
+    .avatar{width:42px!important;height:42px!important;font-size:12px!important}.now,.chip,.pill{padding:6px 9px!important;font-size:10px!important}
+    .empty{padding:16px!important;border-radius:17px!important;font-size:14px!important;line-height:1.45}
+    .bottomnav{grid-template-columns:1fr 64px 1fr!important;padding:7px 14px calc(7px + env(safe-area-inset-bottom))!important}
+    .navbtn{min-height:48px!important;font-size:11px!important;border-radius:12px!important;transition:.15s ease}.navbtn.active{color:var(--lime)!important}.navbtn:active{background:#111}
+    .navplus{width:48px!important;height:48px!important;font-size:28px!important;box-shadow:0 0 20px rgba(207,255,0,.18)}
+    .profilehero{padding:18px!important}.profilehero .avatar{width:76px!important;height:76px!important}
+    .msg{font-size:14px;line-height:1.35;border-radius:14px!important}.msg.me{background:#202900!important}
+    #plan .row input{margin-right:6px!important}.mini.good{min-width:44px!important;min-height:44px!important;padding:8px!important}
+    .loading{padding:16px;border:1px solid #282828;border-radius:17px;color:#aaa;background:#0d0d0d}
+    @media(max-width:390px){.app{padding-left:12px!important;padding-right:12px!important}.brand{font-size:14px!important}.xlogo{font-size:30px!important}.tag{font-size:8px!important}h1{font-size:29px!important}.filterchip{padding:8px 11px!important}.heroText h1{font-size:29px!important}}
+  `;
+  d.head.appendChild(style);
+
+  const tag=d.querySelector('.tag'); if(tag)tag.textContent='MVP 11.7 · ZDAJ';
+
+  /* ---------- HOME FILTRI ---------- */
+  const filterMap={Vse:null,'Šport':'sport','Kava':'kava','Sprehod':'sprehod','Kolesarjenje':'kolesarjenje'};
+  let activeFilter='Vse';
+  let lastHomeItems=[];
+
+  function renderFiltered(){
+    const feed=d.getElementById('feed'); if(!feed)return;
+    let items=[...lastHomeItems];
+    const cat=filterMap[activeFilter];
+    if(cat)items=items.filter(x=>x.category===cat || (cat==='sport'&&x.category==='kosarka'));
+    feed.innerHTML=items.length
+      ? items.slice(0,6).map(x=>w.renderActivity(x,true)).join('')
+      : `<div class="empty">${activeFilter==='Vse'?'Trenutno ni aktivnosti zate. Bodi prvi in objavi, kaj želiš početi.':'Trenutno ni aktivnosti v kategoriji '+activeFilter+'.'}</div>`;
+  }
+
+  async function refreshHome(){
+    if(!w.profile)return;
+    const feed=d.getElementById('feed'); if(feed)feed.innerHTML='<div class="loading">Nalagam aktivnosti …</div>';
+    try{
+      const j=await w.api('activity_list');
+      lastHomeItems=(j.items||[]).filter(x=>x.creator_device_id!==w.deviceId && w.hasAny(w.profile.interests,w.interestMap[x.category]||[]));
+      renderFiltered();
+    }catch(e){if(feed)feed.innerHTML='<div class="empty">Aktivnosti trenutno niso dosegljive. Poskusi ponovno.</div>'}
+  }
+
+  function wireFilters(){
+    [...d.querySelectorAll('#home .filterchip')].forEach(b=>{
+      b.onclick=()=>{
+        activeFilter=b.textContent.trim();
+        [...d.querySelectorAll('#home .filterchip')].forEach(x=>x.classList.toggle('on',x===b));
+        renderFiltered();
+      };
+      b.classList.toggle('on',b.textContent.trim()===activeFilter);
+    });
+  }
+
+  /* ---------- KATEGORIJE PRI OBJAVI ---------- */
+  function wireQuickCats(){
+    [...d.querySelectorAll('#quickCats .choice')].forEach(btn=>{
+      const old=btn.onclick;
+      btn.onclick=(ev)=>{
+        [...d.querySelectorAll('#quickCats .choice')].forEach(x=>x.classList.remove('sel'));
+        btn.classList.add('sel');
+        if(typeof old==='function')old.call(btn,ev);
+        else{
+          const name=(btn.textContent||'').trim().replace(/^\S+\s*/,'');
+          if(w.quickCat)w.quickCat(name);
+        }
+      };
+    });
+  }
+
+  /* ---------- SPODNJA NAVIGACIJA ---------- */
+  function setNavActive(screenId){
+    const btns=[...d.querySelectorAll('.bottomnav .navbtn')];
+    btns.forEach(x=>x.classList.remove('active'));
+    if(screenId==='home'&&btns[0])btns[0].classList.add('active');
+    if(screenId==='myposts'&&btns[1])btns[1].classList.add('active');
+  }
+
+  const originalShow=w.show;
+  if(typeof originalShow==='function'){
+    w.show=function(id){const r=originalShow.call(w,id);setNavActive(id);setTimeout(()=>{wireFilters();wireQuickCats()},0);return r};
+  }
+
+  /* ---------- HOME LOAD PATCH: FILTER NE IZGINE ---------- */
+  const originalLoadHome=w.loadHome;
+  if(typeof originalLoadHome==='function'){
+    w.loadHome=async function(){
+      if(!w.profile)return;
+      const hello=d.getElementById('hello'),meta=d.getElementById('homeMeta');
+      if(hello)hello.textContent='Živjo, '+w.profile.name;
+      if(meta)meta.textContent='📍 '+w.profile.area+' · '+w.profile.region;
+      await refreshHome(); wireFilters(); setNavActive('home');
+    };
+  }
+
+  /* ---------- ZAŠČITA PRED DVOJNIM KLIKOM ---------- */
+  function protectAsync(name){
+    const fn=w[name]; if(typeof fn!=='function')return;
+    w[name]=async function(...args){
+      const evBtn=d.activeElement&&d.activeElement.tagName==='BUTTON'?d.activeElement:null;
+      if(evBtn&&evBtn.dataset.busy==='1')return;
+      if(evBtn){evBtn.dataset.busy='1';evBtn.disabled=true}
+      try{return await fn.apply(w,args)}finally{if(evBtn){setTimeout(()=>{evBtn.disabled=false;delete evBtn.dataset.busy},450)}}
+    };
+  }
+  ['createActivity','joinActivity','saveEditedProfile','sendMsg'].forEach(protectAsync);
+
+  /* ---------- VALIDACIJA ---------- */
+  const createOrig=w.createActivity;
+  if(typeof createOrig==='function'){
+    w.createActivity=async function(){
+      const title=d.getElementById('actTitle');
+      if(!title||title.value.trim().length<3){if(w.toast)w.toast('Napiši vsaj kratek opis aktivnosti');title&&title.focus();return}
+      return createOrig.apply(w,arguments);
+    };
+  }
+
+  /* ---------- KLEPET: ENTER POŠLJE ---------- */
+  const msg=d.getElementById('msg');
+  if(msg)msg.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();w.sendMsg&&w.sendMsg()}});
+
+  /* ---------- PRVI ZAGON ---------- */
+  wireFilters();wireQuickCats();
+  const current=d.querySelector('.screen.on');setNavActive(current?current.id:'home');
+  if(w.profile && d.getElementById('home')?.classList.contains('on')) refreshHome();
+
+  /* ponovno poveži dinamične dele */
+  const obs=new MutationObserver(()=>{wireFilters();wireQuickCats()});
+  obs.observe(d.body,{subtree:true,childList:true});
+});
+</script></body></html>
