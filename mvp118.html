@@ -1,4 +1,4 @@
-<!doctype html><html lang="sl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050505"><title>Projekt X · MVP 12.1</title><style>html,body{margin:0;width:100%;height:100%;background:#050505;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block;background:#050505}</style></head><body><iframe id="shell" src="mvp116.html?v=117"></iframe><script>
+<!doctype html><html lang="sl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050505"><title>Projekt X · MVP 12.2</title><style>html,body{margin:0;width:100%;height:100%;background:#050505;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block;background:#050505}</style></head><body><iframe id="shell" src="mvp116.html?v=117"></iframe><script>
 const shell=document.getElementById('shell');
 const PICS={
   kolesarjenje:'https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=1000&q=82',
@@ -16,22 +16,71 @@ function install(){
   const patch=()=>{
     const w=inner.contentWindow,d=inner.contentDocument;if(!w||!d)return;
 
-    const old=d.getElementById('px120nav');if(old)old.remove();
-    if(!d.getElementById('px121nav')){
-      const s=d.createElement('style');s.id='px121nav';
+    const old120=d.getElementById('px120nav');if(old120)old120.remove();
+    const old121=d.getElementById('px121nav');if(old121)old121.remove();
+    if(!d.getElementById('px122')){
+      const s=d.createElement('style');s.id='px122';
       s.textContent=`
         .bottomnav{grid-template-columns:1fr 64px 1fr!important;align-items:center!important}
         .bottomnav .navbtn{min-height:48px!important;padding:7px 6px!important;font-size:12px!important;font-weight:800!important;line-height:1.25!important;letter-spacing:0!important;color:#a0a0a0!important;border-radius:12px!important}
         .bottomnav .navbtn.active{color:var(--lime)!important}
         .bottomnav .navplus{width:50px!important;height:50px!important;font-size:29px!important}
-        @media(max-width:390px){.bottomnav .navbtn{font-size:11.5px!important;min-height:46px!important}.bottomnav .navplus{width:48px!important;height:48px!important}}
+        .onboard-wrap{max-width:520px;margin:0 auto}
+        .stepper{display:flex;gap:6px;margin:8px 0 18px}.stepper span{height:4px;flex:1;border-radius:999px;background:#232323}.stepper span.on{background:var(--lime)}
+        .onboard-label{font-size:11px;letter-spacing:.08em;color:var(--lime);font-weight:900;text-transform:uppercase;margin-bottom:6px}
+        .onboard-title{font-size:31px;font-weight:950;letter-spacing:-.04em;line-height:1.05;margin:0 0 7px}.onboard-sub{color:#9a9a9a;font-size:14px;line-height:1.45;margin-bottom:14px}
+        .onboard-card{background:linear-gradient(145deg,#141414,#0b0b0b);border:1px solid #292929;border-radius:20px;padding:14px;margin:10px 0}
+        .fieldlabel{display:block;color:#a5a5a5;font-size:12px;font-weight:750;margin:9px 2px 3px}
+        #login .hero{min-height:230px!important;margin-top:4px!important}.login-note{font-size:11px;color:#777;text-align:center;margin-top:10px;line-height:1.4}
+        #step1 h1,#step2 h1{display:none}.step2-note{font-size:12px;color:#8c8c8c;margin:8px 0 0}
+        #step2 .card{padding:10px!important;background:transparent!important;border:0!important}.choices{margin-top:2px}
+        @media(max-width:390px){.bottomnav .navbtn{font-size:11.5px!important;min-height:46px!important}.bottomnav .navplus{width:48px!important;height:48px!important}.onboard-title{font-size:29px}.onboard-sub{font-size:13px}}
       `;
       d.head.appendChild(s);
     }
 
+    function stepper(n){return `<div class="stepper"><span class="${n>=1?'on':''}"></span><span class="${n>=2?'on':''}"></span><span class="${n>=3?'on':''}"></span></div>`}
+    function setupOnboarding(){
+      const login=d.getElementById('login');
+      if(login&&!login.dataset.px122){
+        login.dataset.px122='1';
+        const hero=login.querySelector('.hero');
+        const card=login.querySelector('.card');
+        if(hero&&card){
+          const wrap=d.createElement('div');wrap.className='onboard-wrap';
+          hero.parentNode.insertBefore(wrap,hero);wrap.appendChild(hero);wrap.appendChild(card);
+          card.className='onboard-card';
+          const input=d.getElementById('email');
+          card.innerHTML=`${stepper(1)}<div class="onboard-label">1 · Prijava</div><div class="onboard-title">Vstopi v Projekt X</div><div class="onboard-sub">Za začetek uporabi e-pošto. Kasneje dodava tudi Apple in Google prijavo.</div><label class="fieldlabel">E-pošta</label>`;
+          card.appendChild(input);
+          const btn=d.createElement('button');btn.className='cta';btn.textContent='Nadaljuj';btn.onclick=()=>w.demoLogin&&w.demoLogin();card.appendChild(btn);
+          const note=d.createElement('div');note.className='login-note';note.textContent='Testna verzija: račun je za zdaj shranjen lokalno na tej napravi.';card.appendChild(note);
+        }
+      }
+      const s1=d.getElementById('step1');
+      if(s1&&!s1.dataset.px122){
+        s1.dataset.px122='1';
+        const card=s1.querySelector('.card');
+        if(card){
+          const wrap=d.createElement('div');wrap.className='onboard-wrap';s1.insertBefore(wrap,s1.firstChild);wrap.innerHTML=`${stepper(2)}<div class="onboard-label">2 · Osnovni profil</div><div class="onboard-title">Da te ljudje prepoznajo</div><div class="onboard-sub">Povej samo toliko, kolikor je potrebno za lokalne aktivnosti.</div>`;wrap.appendChild(card);
+          const name=d.getElementById('name'),area=d.getElementById('area'),region=d.getElementById('region'),age=d.getElementById('age');
+          const fields=[[name,'Ime ali vzdevek'],[area,'Kraj'],[region,'Regija'],[age,'Starostni razpon']];
+          card.innerHTML='';fields.forEach(([el,label])=>{const l=d.createElement('label');l.className='fieldlabel';l.textContent=label;card.appendChild(l);card.appendChild(el)});
+          const oldBtn=s1.querySelector('.cta');if(oldBtn){oldBtn.remove();wrap.appendChild(oldBtn);oldBtn.textContent='Naprej · izberi interese'}
+        }
+      }
+      const s2=d.getElementById('step2');
+      if(s2&&!s2.dataset.px122){
+        s2.dataset.px122='1';
+        const intro=d.createElement('div');intro.className='onboard-wrap';intro.innerHTML=`${stepper(3)}<div class="onboard-label">3 · Interesi</div><div class="onboard-title">Kaj bi počel z drugimi?</div><div class="onboard-sub">Izberi vsaj eno stvar. To uporabljamo za “Zate zdaj”.</div>`;
+        const card=s2.querySelector('.card'),btn=s2.querySelector('.cta');s2.insertBefore(intro,s2.firstChild);if(card)intro.appendChild(card);if(btn){intro.appendChild(btn);btn.textContent='Končaj in vstopi'}
+        const note=d.createElement('div');note.className='step2-note';note.textContent='Interese lahko kasneje kadarkoli spremeniš v profilu.';if(btn)intro.insertBefore(note,btn)
+      }
+    }
+
     const originalImgFor=w.imgFor;
     w.imgFor=function(c){return PICS[c]||PICS.drugo||(originalImgFor?originalImgFor(c):'')};
-    const tag=d.querySelector('.tag');if(tag)tag.textContent='MVP 12.1 · ZDAJ';
+    const tag=d.querySelector('.tag');if(tag)tag.textContent='MVP 12.2 · ZDAJ';
     function fixChoices(){
       d.querySelectorAll('.choice').forEach(btn=>{
         const text=(btn.textContent||'').trim();
@@ -42,31 +91,17 @@ function install(){
     }
     function fixFeed(){
       d.querySelectorAll('.feeditem').forEach(card=>{
-        const text=(card.textContent||'').toLowerCase();
-        let cat='drugo';
-        if(text.includes('kosarka')||text.includes('košarka'))cat='kosarka';
-        else if(text.includes('kolesarjenje'))cat='kolesarjenje';
-        else if(text.includes('gaming'))cat='gaming';
-        else if(text.includes('sprehod'))cat='sprehod';
-        else if(text.includes('kava'))cat='kava';
-        else if(text.includes('sport')||text.includes('šport'))cat='sport';
+        const text=(card.textContent||'').toLowerCase();let cat='drugo';
+        if(text.includes('kosarka')||text.includes('košarka'))cat='kosarka';else if(text.includes('kolesarjenje'))cat='kolesarjenje';else if(text.includes('gaming'))cat='gaming';else if(text.includes('sprehod'))cat='sprehod';else if(text.includes('kava'))cat='kava';else if(text.includes('sport')||text.includes('šport'))cat='sport';
         const im=card.querySelector('.feedimg');if(im){im.src=PICS[cat];im.onerror=()=>{im.style.display='none'}}
       });
     }
     const origRender=w.renderActivity;
-    if(typeof origRender==='function'&&!w.__pxImagePatched){
-      w.__pxImagePatched=true;
-      w.renderActivity=function(x,join=true){
-        let html=origRender.call(w,x,join);
-        const src=PICS[x.category]||PICS.drugo;
-        return html.replace(/<img class="feedimg" src="[^"]*">/,`<img class="feedimg" src="${src}" onerror="this.style.display='none'">`);
-      };
-    }
-    fixChoices();fixFeed();
-    const ob=new MutationObserver(()=>{fixChoices();fixFeed()});ob.observe(d.body,{subtree:true,childList:true});
+    if(typeof origRender==='function'&&!w.__pxImagePatched){w.__pxImagePatched=true;w.renderActivity=function(x,join=true){let html=origRender.call(w,x,join);const src=PICS[x.category]||PICS.drugo;return html.replace(/<img class="feedimg" src="[^"]*">/,`<img class="feedimg" src="${src}" onerror="this.style.display='none'">`)}}
+    setupOnboarding();fixChoices();fixFeed();
+    const ob=new MutationObserver(()=>{setupOnboarding();fixChoices();fixFeed()});ob.observe(d.body,{subtree:true,childList:true});
   };
-  inner.addEventListener('load',patch);
-  if(inner.contentDocument&&inner.contentDocument.readyState==='complete')patch();
+  inner.addEventListener('load',patch);if(inner.contentDocument&&inner.contentDocument.readyState==='complete')patch();
 }
 shell.addEventListener('load',install);
 </script></body></html>
