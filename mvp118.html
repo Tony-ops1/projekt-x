@@ -1,4 +1,4 @@
-<!doctype html><html lang="sl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050505"><title>Projekt X · MVP 12.0</title><style>html,body{margin:0;width:100%;height:100%;background:#050505;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block;background:#050505}</style></head><body><iframe id="shell" src="mvp116.html?v=117"></iframe><script>
+<!doctype html><html lang="sl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050505"><title>Projekt X · MVP 12.1</title><style>html,body{margin:0;width:100%;height:100%;background:#050505;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block;background:#050505}</style></head><body><iframe id="shell" src="mvp116.html?v=117"></iframe><script>
 const shell=document.getElementById('shell');
 const PICS={
   kolesarjenje:'https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=1000&q=82',
@@ -16,21 +16,22 @@ function install(){
   const patch=()=>{
     const w=inner.contentWindow,d=inner.contentDocument;if(!w||!d)return;
 
-    if(!d.getElementById('px120nav')){
-      const s=d.createElement('style');s.id='px120nav';
+    const old=d.getElementById('px120nav');if(old)old.remove();
+    if(!d.getElementById('px121nav')){
+      const s=d.createElement('style');s.id='px121nav';
       s.textContent=`
-        .bottomnav{grid-template-columns:1fr 60px 1fr!important;align-items:center!important}
-        .bottomnav .navbtn{min-height:42px!important;padding:3px 2px!important;font-size:10px!important;font-weight:700!important;line-height:1.25!important;letter-spacing:0!important;color:#969696!important}
+        .bottomnav{grid-template-columns:1fr 64px 1fr!important;align-items:center!important}
+        .bottomnav .navbtn{min-height:48px!important;padding:7px 6px!important;font-size:12px!important;font-weight:800!important;line-height:1.25!important;letter-spacing:0!important;color:#a0a0a0!important;border-radius:12px!important}
         .bottomnav .navbtn.active{color:var(--lime)!important}
-        .bottomnav .navplus{width:48px!important;height:48px!important;font-size:27px!important}
-        @media(max-width:390px){.bottomnav .navbtn{font-size:9.5px!important}.bottomnav .navplus{width:46px!important;height:46px!important}}
+        .bottomnav .navplus{width:50px!important;height:50px!important;font-size:29px!important}
+        @media(max-width:390px){.bottomnav .navbtn{font-size:11.5px!important;min-height:46px!important}.bottomnav .navplus{width:48px!important;height:48px!important}}
       `;
       d.head.appendChild(s);
     }
 
     const originalImgFor=w.imgFor;
     w.imgFor=function(c){return PICS[c]||PICS.drugo||(originalImgFor?originalImgFor(c):'')};
-    const tag=d.querySelector('.tag');if(tag)tag.textContent='MVP 12.0 · ZDAJ';
+    const tag=d.querySelector('.tag');if(tag)tag.textContent='MVP 12.1 · ZDAJ';
     function fixChoices(){
       d.querySelectorAll('.choice').forEach(btn=>{
         const text=(btn.textContent||'').trim();
